@@ -15,9 +15,9 @@ wp_enqueue_script( 'wac-csv-ajax-handle', plugin_dir_url( __FILE__ ) . 'waccsv.j
 wp_localize_script( 'wac-csv-ajax-handle', 'wac_csv_ajax', 
 	//URL to wp-admin/admin-ajax.php to process the request   
 	array( 'ajaxurl' => admin_url( 'admin-ajax.php' ),
-    // generate a nonce with a unique ID "waccsvajax"
-    // so that you can check it later when an AJAX request is sent
-    'security' => wp_create_nonce( 'waccsvajax' )
+	// generate a nonce with a unique ID "waccsvajax"
+	// so that you can check it later when an AJAX request is sent
+	'security' => wp_create_nonce( 'waccsvajax' )
 	)); 
 }
 
@@ -30,7 +30,7 @@ function wac_csv_action_function(){
 	check_ajax_referer( 'waccsvajax', 'security' ); //Check the nonce to see if it's valid.  If not simply die.
 	
 	//Get the wordpress database object and needed table names
-    global $wpdb;
+	global $wpdb;
 	//$users_table = trim($wpdb->prefix . 'users');
 	//$usermeta_table = trim($wpdb->prefix . 'usermeta');
 	$tblprefix = trim($wpdb->prefix);
@@ -151,7 +151,7 @@ function wac_csv_action_function(){
 	}
 	
 	//Get the wordpress database object
-    global $wpdb;
+	global $wpdb;
 	// Run the query and put the results in an associative array
 	$results = $wpdb->get_results($qry, ARRAY_A);
 	$numrows = $wpdb->num_rows;
@@ -247,16 +247,16 @@ in a header to the browser, then contents of the buffer to be sent to the browse
 */
 
 	//If no file name gets passed into the function create one that will be unique...
-    if( ! $name) {
-        $name = md5(uniqid() . microtime(TRUE) . mt_rand()). '.csv';
-    }
+	if( ! $name) {
+		$name = md5(uniqid() . microtime(TRUE) . mt_rand()). '.csv';
+  	}
 	
 	//Send the HTTP header to prep the browser for a .csv download.
 	header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 	header("Cache-Control: post-check=0, pre-check=0");
 	header('Content-Description: File Transfer');
 	header('Content-Type: text/csv; charset=utf-8');
-    header('Content-Disposition: attachment; filename='. $name);
+	header('Content-Disposition: attachment; filename='. $name);
 	//  the following cache control header parameters are from http 1.0	
 	//	header("Expires: 0");
 	//	header("Pragma: no-cache");
@@ -268,7 +268,7 @@ in a header to the browser, then contents of the buffer to be sent to the browse
 	ob_start();
 	
 	//Open the output stream
-    $outstream = fopen("php://output", "w");
+	$outstream = fopen("php://output", "w");
 	
 	//Create the column header row using array keys of first record.  Since Excel thinks files with "ID" as the first two 
 	//characters are SYLK formatted, check for that and change ID to _ID if present.  This prevents a warning from being presented by Excel.
@@ -279,12 +279,12 @@ in a header to the browser, then contents of the buffer to be sent to the browse
 	log_me ('WACCSV column header row: ' . implode(",",$hrow));	
 
 	//Write the column header row
-    fputcsv($outstream, $hrow, $delimiter, $enclosure);
+	fputcsv($outstream, $hrow, $delimiter, $enclosure);
 	
 	//Write the rest of the data
-    foreach($results as $result) {
-        fputcsv($outstream, $result, $delimiter, $enclosure);
-    }
+	foreach($results as $result) {
+		fputcsv($outstream, $result, $delimiter, $enclosure);
+	}
 	
 	// Send the size of the output buffer to the browser
 	$contLength = ob_get_length();
@@ -296,7 +296,7 @@ in a header to the browser, then contents of the buffer to be sent to the browse
 	log_me ('WACCSV ob_get_contents: ' . ob_get_contents());
 	
 	//close the output stream
-    fclose($outstream);
+	fclose($outstream);
 	
 	//flush the output buffer to the browser and stop
 	ob_end_flush();
