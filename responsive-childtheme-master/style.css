@@ -1,0 +1,174 @@
+/* 
+Theme Name: Responsive Child Theme
+Theme URI: http://cyberchimps.com/guide/child-theme-example/
+Description: Responsive Child Theme
+Template: responsive
+Version: 2.0.1
+Author: CyberChimps
+Author URI: https://cyberchimps.com/
+License: GNU General Public License
+License URI: license.txt
+
+*/
+
+@import url("../responsive/style.css");
+
+/* =Start From Here
+NOTE: you must update this file, purge varnish, and use f5 in the browser to refresh cache to see change
+-------------------------------------------------------------- */
+/* Hide the Powered by responsive theme at the bottom of the page */
+.powered {
+    display:none;
+}
+
+/* Make the columns in the woocommerce cart look better */
+table.shop_table.cart {
+    table-layout: auto;
+}
+
+/* Make the image in the woocommerce cart bigger */
+.woocommerce #content table.cart img, .woocommerce table.cart img, .woocommerce-page #content table.cart img, .woocommerce-page table.cart img {
+width: 150px;
+}
+
+/* Clean up the look of the product description in the woocommerce cart a bit */
+.woocommerce td.product-name dl.variation dd, .woocommerce-page td.product-name dl.variation dd {
+width: 100%;
+}
+
+/* Make the X to remove items from the woocommerce cart bigger, and the column slightly smaller */
+.woocommerce #content table.cart a.remove, .woocommerce table.cart a.remove, .woocommerce-page #content table.cart a.remove, .woocommerce-page table.cart a.remove {
+font-size: 4em;
+}
+
+/* Make the price description not do line breaks in the middle of a word */
+.woocommerce #content table.cart td, .woocommerce #content table.cart th, .woocommerce table.cart td, .woocommerce table.cart th, .woocommerce-page #content table.cart td, .woocommerce-page #content table.cart th, .woocommerce-page table.cart td, .woocommerce-page table.cart th {
+vertical-align: middle;
+word-break: normal;
+}
+
+/* Make the product description a bit more compact */
+.woocommerce td.product-name dl.variation dd p:last-child, .woocommerce-page td.product-name dl.variation dd p:last-child {
+margin-bottom: 0;
+margin-top: 0;
+}
+
+/* Make the top menu a bit more centered vertically. */
+.top-menu {
+float: right;
+margin: 35px 0 0 0;
+}
+
+/* Make the top menu a bit larger. */
+.top-menu li a {
+font-size: 100%;
+}
+
+/* Hide the continue/return to shopping buttons - some dispute about whether or not they should be hidden. */
+/* NOTE that this is currently commented out, so the buttons show */
+/* return to shopping button... */
+/* a.button.wc-backward { */
+/* display:none; */
+/* } */
+/* continue shopping button... */
+/* a.button.wc-forward{ */
+/* display:none; */
+/* } */
+/* not sure which button this is, found the css online */
+/* p.return-to-shop { */
+/* display:none; */
+/* } */
+
+/* Style notice boxes on Membership Status page. */
+.wacbox {
+position: relative;
+display: block;
+padding-left: 15px;
+}
+.wacgreenbox {
+background: #edfdd3;
+border: 1px solid #c4dba0;
+color: #657e3c;
+}
+.wacyellowbox {
+background: #fdf8d3;
+border: 1px solid #d5c43e;
+color: #9f8e00;
+}
+.wacredbox {
+background: #ffe6e3;
+border: 1px solid #f2c3bf;
+color: #bf210e;
+}
+
+/* Make the avatars on the member directory a bit more square */
+table.userpro-table td div.userpro-table-img img {
+    border-radius: 4px !important;
+    border: 1px solid #ccc !important;
+    width: 125%;
+}
+
+div.emd-user-info {
+padding: 10px 10px 0 10px !important;
+height: 20px;
+}
+
+/* round the edges of the avatars */
+img.modified.avatar {
+border-radius: 4px;
+border: 1px solid #ccc !important;
+}
+
+.woocommerce #payment .terms, .woocommerce-page #payment .terms {
+  font-size: large;
+}
+
+.menu {
+    border-radius: 3px;
+}
+
+/* make the bbpress subscribe/unsubscribe link look better */
+div.bbp-breadcrumb {
+    float: none;
+}
+a.subscription-toggle {
+    font-size: larger;
+    font-style: italic;
+    text-decoration: underline;
+}
+
+div.bbp-reply-content a.subscription-toggle:after {
+    content: " (to this topic only)";
+}
+
+/* Hide the post date on the home page widget, per mike mahanays request */
+span.post-date {
+    visibility: hidden;
+    display: none;
+}
+
+/* Make the menu transitions less instant so people notice the sub-menus */
+.sub-menu {
+    -webkit-transition-timing-function: cubic-bezier(0.4, -0.32, 0.18, 1.7); /* Safari */
+    -webkit-transition-duration: .35s; /* Safari */
+    -webkit-transition-delay: .15s; /* Safari */
+    transition-timing-function: cubic-bezier(0.4, -0.32, 0.18, 1.7);
+    transition-duration: .35s;
+    transition-delay: .15s;
+}
+
+/* This hides the sidebars on woo product pages, and expands the content to fill the space */
+.product-template-default #widgets {
+    display: none;
+}
+#content-woocommerce {
+	width: 100%;
+}
+
+/* Make variations not so messy in the cart */
+.woocommerce td.product-name dl.variation dd, .woocommerce-page td.product-name dl.variation dd {
+    width: 100%;
+    display: inline-flex;
+}
+
+/*The last 29 days of the month are the hardest."- Nikola Tesla*/
