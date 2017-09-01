@@ -2,7 +2,7 @@
 /*
 Plugin Name: WAC Membership Plugin
 Description: WAC customizations related to managing memberships and site functionality.
-Version: 1.9.0
+Version: 1.9.1
 Author: Dave Wilson
 */
 
@@ -53,8 +53,11 @@ function log_me_stripe( $message ) {
  */
 add_filter( 'widget_text', 'shortcode_unautop' );
 add_filter( 'widget_text', 'do_shortcode' );
-/*01a end****************************************/
+/*01 end****************************************/
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/* Woocommerce checkout and shop customizations. */
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*01 start**************************************
  *
  * Add an asterisk to required user-meta fields
@@ -73,9 +76,25 @@ function wac_user_meta_field_config_add_asterisk( $field, $fieldID, $formName )
 
     return $field;
     }
+/*01 end****************************************/
+
+/*02 begin**************************************
+ *
+ * Customize checkout fields:
+ * - Make the phone number so it is not a required field at woocommerce checkout.
+ * - Remove Billing Company, Order Notes fields
+ *
+ */
+add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields' );
+function custom_override_checkout_fields( $fields ) {
+	$fields['billing']['billing_phone']['required'] = false;	/* make phone not required */
+	unset($fields['billing']['billing_company']);				/* remove billing_company field */
+	unset($fields['order']['order_comments']);					/* remove order_comments field */
+	return $fields;
+}
 /*02 end****************************************/
 
-/*03a begin**************************************
+/*03 begin**************************************
  *
  * Remove the related products that show up on the woocommerce shop and product pages.
  * wc_remove_related_products
@@ -87,43 +106,26 @@ add_filter( 'woocommerce_related_products_args','wac_wc_remove_related_products'
 function wac_wc_remove_related_products( $args ) {
 	return array( );
 }
-/*03a end****************************************/
+/*03 end****************************************/
 
 /*04 begin**************************************
- *
- * Make the phone number so it is not a required field at woocommerce checkout.
- *
+ * Redirect the Continue Shopping URL from the default ( most recent product ) to a custom URL.
  */
-add_filter( 'woocommerce_billing_fields', 'wc_npr_filter_phone', 10, 1 );
-
-function wc_npr_filter_phone( $address_fields ) {
-	$address_fields['billing_phone']['required'] = false;
-	return $address_fields;
-}
-/*04 end****************************************/
-
-
-/*05 begin**************************************
- * Redirect the Continue Shopping URL from the default ( most recent product ) to
- * a custom URL.
- */
+add_filter( 'woocommerce_continue_shopping_redirect', 'custom_continue_shopping_redirect_url' );
 function custom_continue_shopping_redirect_url ( $url ) {
 	$url = site_url( '/shop-the-wac/' ); 
 	return $url;
 }
-add_filter( 'woocommerce_continue_shopping_redirect', 'custom_continue_shopping_redirect_url' );
+/*04 end****************************************/
 
-/**
+/*05 begin**************************************
  * Changes the redirect URL for the Return To Shop button in the cart.
- *
- * @return string
  */
+add_filter( 'woocommerce_return_to_shop_redirect', 'wc_empty_cart_redirect_url' );
 function wc_empty_cart_redirect_url( ) {
 	return site_url( '/shop-the-wac/' ); 
 }
-add_filter( 'woocommerce_return_to_shop_redirect', 'wc_empty_cart_redirect_url' );
 /*05 end****************************************/
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /* Custom top menu. */
