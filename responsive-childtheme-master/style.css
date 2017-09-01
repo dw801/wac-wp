@@ -3,7 +3,7 @@ Theme Name: Responsive Child Theme
 Theme URI: http://cyberchimps.com/guide/child-theme-example/
 Description: Responsive Child Theme
 Template: responsive
-Version: 2.0.1
+Version: 2.0.2
 Author: CyberChimps
 Author URI: https://cyberchimps.com/
 License: GNU General Public License
@@ -169,6 +169,10 @@ span.post-date {
 .woocommerce td.product-name dl.variation dd, .woocommerce-page td.product-name dl.variation dd {
     width: 100%;
     display: inline-flex;
+}
+
+input.input-text {
+    color: black;
 }
 
 /*The last 29 days of the month are the hardest."- Nikola Tesla*/
